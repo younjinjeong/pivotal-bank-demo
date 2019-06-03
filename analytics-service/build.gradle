@@ -21,8 +21,8 @@ bootJar {
 }
 
 description = "Micro-service to access analytics"
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = 11.0
+targetCompatibility = 11.0
 
 repositories {
     mavenCentral()
