@@ -26,7 +26,7 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          keys:
+          keys: 
             - v1-dependencies-{{ checksum "quotes-service/build.gradle" }}
             - v1-dependencies-{{ checksum "accounts-service/build.gradle" }}
             - v1-dependencies-{{ checksum "portfolio-service/build.gradle" }}
@@ -38,18 +38,14 @@ jobs:
       - run: scripts/2_build.sh
 
       - save_cache:
+          key: v1-dependencies-{{ checksum ".gradle" }} 
           paths:
-            - ~/quotes-service/.gradle
-            - ~/accounts-service/.gradle 
-            - ~/portfolio-service/.gradle 
-            - ~/web-ui/.gradle
-            - ~/user-service/.gradle
-          key: 
-            - v1-dependencies-{{ checksum "quotes-service/build.gradle" }}
-            - v1-dependencies-{{ checksum "accounts-service/build.gradle" }}
-            - v1-dependencies-{{ checksum "portfolio-service/build.gradle" }}
-            - v1-dependencies-{{ checksum "web-ui/build.gradle" }}
-            - v1-dependencies-{{ checksum "user-service/build.gradle" }}
+            - ~/quotes-service/
+            - ~/accounts-service/
+            - ~/portfolio-service/
+            - ~/web-ui/
+            - ~/user-service/
+          
 
       # run tests!
       # - run: ./gradlew test
