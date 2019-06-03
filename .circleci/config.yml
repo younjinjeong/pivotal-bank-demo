@@ -44,7 +44,12 @@ jobs:
             - ~/portfolio-service/.gradle 
             - ~/web-ui/.gradle
             - ~/user-service/.gradle
-          key: v1-dependencies-{{ checksum "quotes-service/build.gradle" }}
+          key: 
+            - v1-dependencies-{{ checksum "quotes-service/build.gradle" }}
+            - v1-dependencies-{{ checksum "accounts-service/build.gradle" }}
+            - v1-dependencies-{{ checksum "portfolio-service/build.gradle" }}
+            - v1-dependencies-{{ checksum "web-ui/build.gradle" }}
+            - v1-dependencies-{{ checksum "user-service/build.gradle" }}
 
       # run tests!
       # - run: ./gradlew test
