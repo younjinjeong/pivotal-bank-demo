@@ -33,7 +33,7 @@ jobs:
             - v1-dependencies-{{ checksum "web-ui/build.gradle" }}
             - v1-dependencies-{{ checksum "user-service/build.gradle" }}
             # fallback to using the latest cache if no exact match is found
-            # - v1-dependencies-
+            - v1-dependencies-
 
       - run: scripts/2_build.sh
 
@@ -44,12 +44,7 @@ jobs:
             - ~/portfolio-service/.gradle 
             - ~/web-ui/.gradle
             - ~/user-service/.gradle
-          keys:
-            - v1-dependencies-{{ checksum "quotes-service/build.gradle" }}
-            - v1-dependencies-{{ checksum "accounts-service/build.gradle" }}
-            - v1-dependencies-{{ checksum "portfolio-service/build.gradle" }}
-            - v1-dependencies-{{ checksum "web-ui/build.gradle" }}
-            - v1-dependencies-{{ checksum "user-service/build.gradle" }}
+          key: v1-dependencies-{{ checksum "quotes-service/build.gradle" }}
 
       # run tests!
       # - run: ./gradlew test
