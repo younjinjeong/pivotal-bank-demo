@@ -29,8 +29,8 @@ repositories {
 }
 
 ext {
-    springCloudServicesVersion = '2.0.1.RELEASE'
-    springCloudVersion = 'Finchley.RELEASE'
+    springCloudServicesVersion = '2.1.4.RELEASE'
+    springCloudVersion = 'Greenwich.SR1'
     elasticsearchVersion = "5.6.4"
 }
 ext['elasticsearch.version'] = '5.6.4'
@@ -40,7 +40,9 @@ dependencies {
 
 	compile "org.springframework.boot:spring-boot-starter-web"
 	compile "org.springframework.boot:spring-boot-starter-actuator"
+    compile "org.springframework.boot:spring-boot-starter-security"
 	compile "org.springframework.boot:spring-boot-starter-data-elasticsearch"
+
 
     compile("org.elasticsearch.client:transport:${elasticsearchVersion}") {
         exclude group: "commons-logging", module: "commons-logging"
