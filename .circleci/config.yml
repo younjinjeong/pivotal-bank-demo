@@ -73,7 +73,7 @@ jobs:
       - save_cache:
           name: Save cache for quotes-service
           paths:
-            - "quotes-service/.gradle"
+            - "~/repo/quotes-service/"
           key: quotes-service-{{ checksum "quotes-service/.gradle" }}
 
       - persist_to_workspace:
@@ -117,7 +117,7 @@ jobs:
       - save_cache:
           name: Save cache for accounts-service
           paths:
-            - "accounts-service/.gradle"
+            - "~/repo/accounts-service/"
           key: accounts-service-{{ checksum ".gradle" }}
 
       - persist_to_workspace:
@@ -161,7 +161,7 @@ jobs:
       - save_cache:
           name: Save cache for portfolio-service
           paths:
-            - "portfolio-service/.gradle"
+            - "~/repo/portfolio-service/"
           key: portfolio-service-{{ checksum ".gradle" }}
 
       - persist_to_workspace:
@@ -203,7 +203,7 @@ jobs:
       - save_cache:
           name: Save cache for web-ui
           paths:
-            - "web-ui/.gradle"
+            - "~/repo/web-ui/"
           key: web-ui-{{ checksum ".gradle" }}
 
       - persist_to_workspace:
@@ -248,7 +248,7 @@ jobs:
       - save_cache:
           name: Save cache for user-service
           paths:
-            - "user-service/.gradle"
+            - "~/repo/user-service/"
           key: user-service-{{ checksum ".gradle" }}
 
       - persist_to_workspace:
