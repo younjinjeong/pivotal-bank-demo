@@ -24,6 +24,10 @@ jobs:
     steps:
       - checkout
       - run: scripts/2_build.sh
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - .
 
   unit_test:
     docker:
@@ -31,13 +35,13 @@ jobs:
     parallelism: 4
     working_directory: ~/repo
     steps:
+      - attach_workspace:
+          - at: ~/repo
       - run: quotes-service/gradlew test --test '**'
       - run: accounts-service/gradlew test --test '**'
       - run: portfolio-service/gradlew test --test '**'
       - run: web-ui/gradlew test --test '**'
       - run: user-service/gradlew test --test '**'
-
-
 
       # run tests!
       # - run: ./gradlew test
@@ -47,4 +51,6 @@ workflows:
   build_and_test:
     jobs:
       - build
-      - unit_test
+      - unit_test:
+          requires:
+            - build
