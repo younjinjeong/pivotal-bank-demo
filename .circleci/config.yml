@@ -60,8 +60,8 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-quotes-service-{{ checksum "quotes-service/.gradle" }}
-            - v1-dependencies-quotes-service-
+            - quotes-service-{{ checksum "quotes-service/.gradle" }}
+            - quotes-service-
 
       - run:
           name: quotes-service build
@@ -73,8 +73,8 @@ jobs:
       - save_cache:
           name: Save cache for quotes-service
           paths:
-            - "quotes-service/"
-          key: v1-dependencies-quotes-service-{{ checksum "quotes-service/.gradle" }}
+            - "quotes-service/.gradle"
+          key: quotes-service-{{ checksum "quotes-service/.gradle" }}
 
       - persist_to_workspace:
           root: ~/
@@ -117,8 +117,8 @@ jobs:
       - save_cache:
           name: Save cache for accounts-service
           paths:
-            - "repo/accounts-service/"
-          key: v1-dependencies-accounts-service-{{ checksum ".gradle" }}
+            - "accounts-service/.gradle"
+          key: accounts-service-{{ checksum ".gradle" }}
 
       - persist_to_workspace:
           root: ~/
@@ -145,8 +145,8 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
-            - v1-dependencies-portfolio-service-
+            - portfolio-service-{{ checksum ".gradle" }}
+            - portfolio-service-
 
       - attach_workspace:
           at: ~/
@@ -161,8 +161,8 @@ jobs:
       - save_cache:
           name: Save cache for portfolio-service
           paths:
-            - "repo/portfolio-service/"
-          key: v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
+            - "portfolio-service/.gradle"
+          key: portfolio-service-{{ checksum ".gradle" }}
 
       - persist_to_workspace:
           root: ~/
@@ -187,8 +187,8 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-web-ui-{{ checksum ".gradle" }}
-            - v1-dependencies-web-ui-
+            - web-ui-{{ checksum ".gradle" }}
+            - web-ui-
 
       - attach_workspace:
           at: ~/
@@ -203,8 +203,8 @@ jobs:
       - save_cache:
           name: Save cache for web-ui
           paths:
-            - "repo/web-ui/"
-          key: v1-dependencies-web-ui-{{ checksum ".gradle" }}
+            - "web-ui/.gradle"
+          key: web-ui-{{ checksum ".gradle" }}
 
       - persist_to_workspace:
           root: ~/
@@ -223,6 +223,7 @@ jobs:
       # - image: circleci/postgres:9.4
     # parallelism: 4
     working_directory: ~/repo
+
     environment:
       # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
@@ -231,8 +232,8 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-user-service-{{ checksum ".gradle" }}
-            - v1-dependencies-user-service-
+            - user-service-{{ checksum ".gradle" }}
+            - user-service-
 
       - attach_workspace:
           at: ~/
@@ -247,8 +248,8 @@ jobs:
       - save_cache:
           name: Save cache for user-service
           paths:
-            - "repo/user-service/"
-          key: v1-dependencies-user-service-{{ checksum ".gradle" }}
+            - "user-service/.gradle"
+          key: user-service-{{ checksum ".gradle" }}
 
       - persist_to_workspace:
           root: ~/
