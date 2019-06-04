@@ -1,0 +1,83 @@
+# Java Gradle CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+jobs:
+  build:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:11-jdk
+
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+
+    working_directory: ~/repo
+
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys: 
+            - v1-dependencies-{{ checksum "quotes-service/build.gradle" }}
+            - v1-dependencies-{{ checksum "accounts-service/build.gradle" }}
+            - v1-dependencies-{{ checksum "portfolio-service/build.gradle" }}
+            - v1-dependencies-{{ checksum "web-ui/build.gradle" }}
+            - v1-dependencies-{{ checksum "user-service/build.gradle" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      - run: scripts/2_build.sh
+
+      - save_cache:
+          key: v1-dependencies-{{ checksum "quotes-service/.gradle" }}
+          paths:
+            - ~/repo/quotes-service/
+      - save_cache:
+          key: v1-dependencies-{{ checksum "accounts-service/.gradle" }}
+          paths:
+            - ~/repo/accounts-service/
+      - save_cache:
+          key: v1-dependencies-{{ checksum "portfolio-service/.gradle" }}
+          paths:
+            - ~/repo/accounts-service/
+      - save_cache:
+          key: v1-dependencies-{{ checksum "web-ui/.gradle" }}
+          paths:
+            - ~/repo/web-ui/
+      - save_cache:
+          key: v1-dependencies-{{ checksum "user-service/.gradle" }}
+          paths:
+            - ~/repo/user-service/
+
+  unit_test:
+    docker:
+      - image: circleci/openjdk:11-jdk
+    parallelism: 5
+    working_directory: ~/repo
+    steps:
+      - run: quotes-service/gradlew test --test '**'
+      - run: accounts-service/gradlew test --test '**'
+      - run: portfolio-service/gradlew test --test '**'
+      - run: web-ui/gradlew test --test '**'
+      - run: user-service/gradlew test --test '**'
+
+
+
+      # run tests!
+      # - run: ./gradlew test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - unit_test

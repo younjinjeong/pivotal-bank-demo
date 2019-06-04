@@ -23,40 +23,7 @@ jobs:
 
     steps:
       - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys: 
-            - v1-dependencies-{{ checksum "quotes-service/build.gradle" }}
-            - v1-dependencies-{{ checksum "accounts-service/build.gradle" }}
-            - v1-dependencies-{{ checksum "portfolio-service/build.gradle" }}
-            - v1-dependencies-{{ checksum "web-ui/build.gradle" }}
-            - v1-dependencies-{{ checksum "user-service/build.gradle" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
-
       - run: scripts/2_build.sh
-
-      - save_cache:
-          key: v1-dependencies-{{ checksum "quotes-service/.gradle" }}
-          paths:
-            - ~/repo/quotes-service/
-      - save_cache:
-          key: v1-dependencies-{{ checksum "accounts-service/.gradle" }}
-          paths:
-            - ~/repo/accounts-service/
-      - save_cache:
-          key: v1-dependencies-{{ checksum "portfolio-service/.gradle" }}
-          paths:
-            - ~/repo/accounts-service/
-      - save_cache:
-          key: v1-dependencies-{{ checksum "web-ui/.gradle" }}
-          paths:
-            - ~/repo/web-ui/
-      - save_cache:
-          key: v1-dependencies-{{ checksum "user-service/.gradle" }}
-          paths:
-            - ~/repo/user-service/
 
   unit_test:
     docker:
