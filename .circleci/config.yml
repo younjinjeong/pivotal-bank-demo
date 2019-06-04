@@ -39,7 +39,8 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run: pwd
-      - run: ls
+      - run: cd ~/repo
+      - run: ls -alt
       - run: quotes-service/gradlew test --test '**'
       - run: accounts-service/gradlew test --test '**'
       - run: portfolio-service/gradlew test --test '**'
