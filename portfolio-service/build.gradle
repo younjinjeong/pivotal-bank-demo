@@ -65,3 +65,7 @@ dependencyManagement {
     }
 }
 
+test {
+    useJUnit()
+    maxHeapSize = '1G'
+}
