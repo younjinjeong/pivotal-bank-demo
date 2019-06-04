@@ -25,9 +25,10 @@ jobs:
       - checkout
       - run: scripts/2_build.sh
       - persist_to_workspace:
-          root: ~/repo
+          root: ~/
           paths:
             - .
+
 
   unit_test:
     docker:
@@ -38,11 +39,12 @@ jobs:
       - attach_workspace:
           at: ~/repo
       - run: pwd
-      - run: ~/repo/quotes-service/gradlew test --test '**'
-      - run: ~/repo/accounts-service/gradlew test --test '**'
-      - run: ~/repo/portfolio-service/gradlew test --test '**'
-      - run: ~/repo/web-ui/gradlew test --test '**'
-      - run: ~/repo/user-service/gradlew test --test '**'
+      - run: ls
+      - run: quotes-service/gradlew test --test '**'
+      - run: accounts-service/gradlew test --test '**'
+      - run: portfolio-service/gradlew test --test '**'
+      - run: web-ui/gradlew test --test '**'
+      - run: user-service/gradlew test --test '**'
 
       # run tests!
       # - run: ./gradlew test
