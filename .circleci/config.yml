@@ -52,10 +52,10 @@ jobs:
             ./gradlew build
             cd ..
 
-        - persist_to_workspace:
-            root: ~/
-            paths:
-              - .
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
 
 
   unit_test:
