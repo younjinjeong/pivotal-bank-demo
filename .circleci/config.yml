@@ -4,7 +4,29 @@
 #
 version: 2
 jobs:
-  build:
+  code_checkout:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:11-jdk
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+      # parallelism: 4
+    working_directory: ~/repo
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - checkout
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
+
+  build_quotes_service:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
@@ -20,7 +42,13 @@ jobs:
       TERM: dumb
 
     steps:
-      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-quotes-service-{{ checksum ".gradle" }}
+            - v1-dependencies-quotes-service-
+
+      - attach_workspace:
+          at: ~/
 
       - run:
           name: quotes-service build
@@ -28,60 +56,12 @@ jobs:
             cd quotes-service
             ./gradlew build
             cd ..
+
       - save_cache:
           name: Save cache for quotes-service
           paths:
             - quotes-service/
           key: v1-dependencies-quotes-service-{{ checksum ".gradle" }}
-
-      - run:
-          name: accounts-service build
-          command: |
-            cd accounts-service
-            ./gradlew build
-            cd ..
-      - save_cache:
-          name: Save cache for accounts service
-          paths:
-            - accounts-service/
-          key: v1-dependencies-accounts-service-{{ checksum ".gradle" }}
-
-      - run:
-          name: portfolio-service build
-          command: |
-            cd portfolio-service
-            ./gradlew build
-            cd ..
-      - save_cache:
-          name: Save cache for portfolio service
-          paths:
-            - portfolio-service/
-          key: v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
-          
-      - run:
-          name: webui-service build
-          command: |
-            cd web-ui
-            ./gradlew build
-            cd ..
-      - save_cache:
-          name: Save cache for web-ui
-          paths:
-            - web-ui/
-          key: v1-dependencies-web-ui-{{ checksum ".gradle" }}
-
-      - run:
-          name: user-service build
-          command: |
-            cd user-service
-            ./gradlew build
-            cd ..
-      - save_cache:
-          name: Save cache for user-service
-          paths:
-            - user-service/
-          key: v1-dependencies-user-service-{{ checksum ".gradle" }}
-
 
       - persist_to_workspace:
           root: ~/
@@ -89,18 +69,192 @@ jobs:
             - .
 
 
-  unit_test:
+
+  build_accounts_service:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:11-jdk
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+    # parallelism: 4
+    working_directory: ~/repo
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-accounts-service-{{ checksum ".gradle" }}
+            - v1-dependencies-accounts-service-
+
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: accounts-service build
+          command: |
+            cd accounts-service
+            ./gradlew build
+            cd ..
+
+      - save_cache:
+          name: Save cache for accounts-service
+          paths:
+            - accounts-service/
+          key: v1-dependencies-accounts-service-{{ checksum ".gradle" }}
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
+
+
+
+  build_portfolio_service:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:11-jdk
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+    # parallelism: 4
+    working_directory: ~/repo
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
+            - v1-dependencies-portfolio-service-
+
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: portfolio-service build
+          command: |
+            cd portfolio-service
+            ./gradlew build
+            cd ..
+
+      - save_cache:
+          name: Save cache for portfolio-service
+          paths:
+            - portfolio-service/
+          key: v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
+
+  build_web_ui:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:11-jdk
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+    # parallelism: 4
+    working_directory: ~/repo
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-web-ui-{{ checksum ".gradle" }}
+            - v1-dependencies-web-ui-
+
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: web-ui build
+          command: |
+            cd web-ui
+            ./gradlew build
+            cd ..
+
+      - save_cache:
+          name: Save cache for web-ui
+          paths:
+            - web-ui/
+          key: v1-dependencies-web-ui-{{ checksum ".gradle" }}
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
+
+
+
+  build_user_service:
+    docker:
+      # specify the version you desire here
+      - image: circleci/openjdk:11-jdk
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+      # - image: circleci/postgres:9.4
+    # parallelism: 4
+    working_directory: ~/repo
+    environment:
+      # Customize the JVM maximum heap limit
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+
+    steps:
+      - restore_cache:
+          keys:
+            - v1-dependencies-user-service-{{ checksum ".gradle" }}
+            - v1-dependencies-user-service-
+
+      - attach_workspace:
+          at: ~/
+
+      - run:
+          name: user-service build
+          command: |
+            cd user-service
+            ./gradlew build
+            cd ..
+
+      - save_cache:
+          name: Save cache for user-service
+          paths:
+            - user-service/
+          key: v1-dependencies-user-service-{{ checksum ".gradle" }}
+
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
+
+
+  test_quotes_service:
+
     docker:
       - image: circleci/openjdk:11-jdk
     # parallelism: 4
     working_directory: ~/repo
+
     steps:
-      -restore_cache:
+      - restore_cache:
         keys:
           - v1-dependencies-quotes-service-{{ checksum ".gradle" }}
-          - v1-dependencies-accounts-service-{{ checksum ".gradle" }}
-          - v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
-          - v1-dependencies-web-ui-{{ checksum ".gradle" }}
+          - v1-dependencies-quotes-service-
 
       - attach_workspace:
           at: ~/
@@ -118,17 +272,54 @@ jobs:
             - quotes-service/
           key: v1-dependencies-quotes-service-{{ checksum ".gradle" }}
 
+
+  test_accounts_service:
+
+    docker:
+      - image: circleci/openjdk:11-jdk
+      # parallelism: 4
+
+    working_directory: ~/repo
+
+    steps:
+      - restore_cache:
+        keys:
+          - v1-dependencies-accounts-service-{{ checksum ".gradle" }}
+          - v1-dependencies-accounts-service-
+
+
+      - attach_workspace:
+          at: ~/
+
       - run:
           name: accounts-service test
           command: |
             cd accounts-service
             ./gradlew test --tests '**'
             cd ..
+
       - save_cache:
           name: Save cache for accounts service
           paths:
             - accounts-service/
           key: v1-dependencies-accounts-service-{{ checksum ".gradle" }}
+
+
+  test_portfolio_service:
+
+    docker:
+      - image: circleci/openjdk:11-jdk
+      # parallelism: 4
+    working_directory: ~/repo
+
+    steps:
+      - restore_cache:
+        keys:
+          - v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
+          - v1-dependencies-portfolio-service-
+
+      - attach_workspace:
+          at: ~/
 
       - run:
           name: portfolio-service test
@@ -136,11 +327,29 @@ jobs:
             cd portfolio-service
             ./gradlew test --tests '**'
             cd ..
+
       - save_cache:
           name: Save cache for portfolio service
           paths:
             - portfolio-service/
           key: v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
+
+
+  test_web_ui:
+
+    docker:
+      - image: circleci/openjdk:11-jdk
+      # parallelism: 4
+    working_directory: ~/repo
+
+    steps:
+      - restore_cache:
+        keys:
+          - v1-dependencies-web-ui-{{ checksum ".gradle" }}
+          - v1-dependencies-web-ui-
+
+      - attach_workspace:
+          at: ~/
 
       - run:
           name: webui-service test
@@ -154,6 +363,23 @@ jobs:
             - web-ui/
           key: v1-dependencies-web-ui-{{ checksum ".gradle" }}
 
+
+  test_user_service:
+
+    docker:
+      - image: circleci/openjdk:11-jdk
+      # parallelism: 4
+    working_directory: ~/repo
+
+    steps:
+      - restore_cache:
+        keys:
+          - v1-dependencies-user-service-{{ checksum ".gradle" }}
+          - v1-dependencies-user-service-
+
+      - attach_workspace:
+          at: ~/
+
       - run:
           name: user-service test
           command: |
@@ -165,14 +391,51 @@ jobs:
           paths:
             - user-service/
           key: v1-dependencies-user-service-{{ checksum ".gradle" }}
-      # run tests!
-      # - run: ./gradlew test
+
 
 workflows:
   version: 2
   build_and_test:
     jobs:
-      - build
-      - unit_test:
+      - code_checkout
+
+      - build_quotes_service:
           requires:
-            - build
+            - code_checkout
+
+      - build_accounts_service:
+          requires:
+            - code_checkout
+
+      - build_portfolio_service:
+          requires:
+            - code_checkout
+
+      - build_user_service:
+          requires:
+            - code_checkout
+
+      - build_web_ui:
+          requires:
+            - code_checkout
+
+
+      - test_quotes_service:
+          requires:
+            - build_quotes_service
+
+      - test_accounts_service:
+          requires:
+            - build_accounts_service
+
+      - test_portfolio_service:
+          requires:
+            - build_portfolio_service
+
+      - test_web_ui:
+          requires:
+            - build_web_ui
+
+      - test_user_service:
+          requires:
+            - build_user_service
