@@ -21,41 +21,41 @@ jobs:
 
     steps:
       - checkout
-    - run:
-        name: quotes-service build
-        command: |
-          cd quotes-service
-          ./gradlew build
-          cd ..
-    - run:
-        name: accounts-service build
-        command: |
-          cd accounts-service
-          ./gradlew build
-          cd ..
-    - run:
-        name: portfolio-service build
-        command: |
-          cd portfolio-service
-          ./gradlew build
-          cd ..
-    - run:
-        name: webui-service build
-        command: |
-          cd web-ui
-          ./gradlew build
-          cd ..
-    - run:
-        name: user-service build
-        command: |
-          cd user-service
-          ./gradlew build
-          cd ..
+      - run:
+          name: quotes-service build
+          command: |
+            cd quotes-service
+            ./gradlew build
+            cd ..
+      - run:
+          name: accounts-service build
+          command: |
+            cd accounts-service
+            ./gradlew build
+            cd ..
+      - run:
+          name: portfolio-service build
+          command: |
+            cd portfolio-service
+            ./gradlew build
+            cd ..
+      - run:
+          name: webui-service build
+          command: |
+            cd web-ui
+            ./gradlew build
+            cd ..
+      - run:
+          name: user-service build
+          command: |
+            cd user-service
+            ./gradlew build
+            cd ..
 
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .
+        - persist_to_workspace:
+            root: ~/
+            paths:
+              - .
 
 
   unit_test:
