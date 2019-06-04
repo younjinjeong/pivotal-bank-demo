@@ -8,14 +8,12 @@ jobs:
     docker:
       # specify the version you desire here
       - image: circleci/openjdk:11-jdk
-
       # Specify service dependencies here if necessary
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
-
+    parallelism: 4
     working_directory: ~/repo
-
     environment:
       # Customize the JVM maximum heap limit
       JVM_OPTS: -Xmx3200m
@@ -23,7 +21,37 @@ jobs:
 
     steps:
       - checkout
-      - run: scripts/2_build.sh
+    - run:
+        name: quotes-service build
+        command: |
+          cd quotes-service
+          ./gradlew build
+          cd ..
+    - run:
+        name: accounts-service build
+        command: |
+          cd accounts-service
+          ./gradlew build
+          cd ..
+    - run:
+        name: portfolio-service build
+        command: |
+          cd portfolio-service
+          ./gradlew build
+          cd ..
+    - run:
+        name: webui-service build
+        command: |
+          cd web-ui
+          ./gradlew build
+          cd ..
+    - run:
+        name: user-service build
+        command: |
+          cd user-service
+          ./gradlew build
+          cd ..
+
       - persist_to_workspace:
           root: ~/
           paths:
@@ -33,7 +61,7 @@ jobs:
   unit_test:
     docker:
       - image: circleci/openjdk:11-jdk
-    # parallelism: 4
+    parallelism: 4
     working_directory: ~/repo
     steps:
       - attach_workspace:
@@ -59,7 +87,7 @@ jobs:
       - run:
           name: webui-service test
           command: |
-            cd web-ui-service
+            cd web-ui
             ./gradlew test --tests '**'
             cd ..
       - run:
