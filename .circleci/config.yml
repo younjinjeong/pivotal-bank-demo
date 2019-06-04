@@ -101,7 +101,7 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - accounts-service-{{ checksum ".gradle" }}
+            - accounts-service-{{ checksum "accounts-service/.gradle" }}
             - accounts-service-
 
       - attach_workspace:
@@ -116,9 +116,7 @@ jobs:
 
       - save_cache:
           name: Save cache for accounts-service
-          paths:
-            - "~/repo/accounts-service/"
-          key: accounts-service-{{ checksum ".gradle" }}
+          key: accounts-service-{{ checksum "accounts-service/.gradle" }}
 
       - persist_to_workspace:
           root: ~/
@@ -145,7 +143,7 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - portfolio-service-{{ checksum ".gradle" }}
+            - portfolio-service-{{ checksum "portfolio-service/.gradle" }}
             - portfolio-service-
 
       - attach_workspace:
@@ -160,9 +158,9 @@ jobs:
 
       - save_cache:
           name: Save cache for portfolio-service
-          paths:
-            - "~/repo/portfolio-service/"
-          key: portfolio-service-{{ checksum ".gradle" }}
+          # paths:
+          #   - "~/repo/portfolio-service/"
+          key: portfolio-service-{{ checksum "portfolio-service/.gradle" }}
 
       - persist_to_workspace:
           root: ~/
@@ -187,7 +185,7 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - web-ui-{{ checksum ".gradle" }}
+            - web-ui-{{ checksum "web-ui/.gradle" }}
             - web-ui-
 
       - attach_workspace:
@@ -202,9 +200,7 @@ jobs:
 
       - save_cache:
           name: Save cache for web-ui
-          paths:
-            - "~/repo/web-ui/"
-          key: web-ui-{{ checksum ".gradle" }}
+          key: web-ui-{{ checksum "web-ui/.gradle" }}
 
       - persist_to_workspace:
           root: ~/
@@ -247,9 +243,7 @@ jobs:
 
       - save_cache:
           name: Save cache for user-service
-          paths:
-            - "~/repo/user-service/"
-          key: user-service-{{ checksum ".gradle" }}
+          key: user-service-{{ checksum "user-service/.gradle" }}
 
       - persist_to_workspace:
           root: ~/
@@ -267,8 +261,8 @@ jobs:
     steps:
       - restore_cache:
         keys:
-          - v1-dependencies-quotes-service-{{ checksum ".gradle" }}
-          - v1-dependencies-quotes-service-
+          - quotes-service-{{ checksum "quotes-service/.gradle" }}
+          - quotes-service-
 
       - attach_workspace:
           at: ~/
@@ -282,9 +276,7 @@ jobs:
 
       - save_cache:
           name: Save cache for quotes-service
-          paths:
-            - "repo/quotes-service/"
-          key: v1-dependencies-quotes-service-{{ checksum ".gradle" }}
+          key: quotes-service-{{ checksum "quotes-service/.gradle" }}
 
 
   test_accounts_service:
@@ -297,9 +289,9 @@ jobs:
 
     steps:
       - restore_cache:
-        keys:
-          - v1-dependencies-accounts-service-{{ checksum ".gradle" }}
-          - v1-dependencies-accounts-service-
+          keys:
+            - accounts-service-{{ checksum "accounts-service/.gradle" }}
+            - accounts-service-
 
 
       - attach_workspace:
@@ -314,9 +306,7 @@ jobs:
 
       - save_cache:
           name: Save cache for accounts service
-          paths:
-            - "repo/accounts-service/"
-          key: v1-dependencies-accounts-service-{{ checksum ".gradle" }}
+          key: accounts-service-{{ checksum "accounts-service/.gradle" }}
 
 
   test_portfolio_service:
@@ -328,9 +318,9 @@ jobs:
 
     steps:
       - restore_cache:
-        keys:
-          - v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
-          - v1-dependencies-portfolio-service-
+          keys:
+            - portfolio-service-{{ checksum "portfolio-service/.gradle" }}
+            - portfolio-service-
 
       - attach_workspace:
           at: ~/
@@ -344,9 +334,7 @@ jobs:
 
       - save_cache:
           name: Save cache for portfolio service
-          paths:
-            - "repo/portfolio-service/"
-          key: v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
+          key: v1-dependencies-portfolio-service-{{ checksum "portfolio-service/.gradle" }}
 
 
   test_web_ui:
@@ -359,8 +347,8 @@ jobs:
     steps:
       - restore_cache:
         keys:
-          - v1-dependencies-web-ui-{{ checksum ".gradle" }}
-          - v1-dependencies-web-ui-
+          - web-ui-{{ checksum "web-ui/.gradle" }}
+          - web-ui-
 
       - attach_workspace:
           at: ~/
@@ -373,9 +361,7 @@ jobs:
             cd ..
       - save_cache:
           name: Save cache for web-ui
-          paths:
-            - "repo/web-ui/"
-          key: v1-dependencies-web-ui-{{ checksum ".gradle" }}
+          key: web-ui-{{ checksum "web-ui/.gradle" }}
 
 
   test_user_service:
@@ -388,8 +374,8 @@ jobs:
     steps:
       - restore_cache:
         keys:
-          - v1-dependencies-user-service-{{ checksum ".gradle" }}
-          - v1-dependencies-user-service-
+          - user-service-{{ checksum "user-service/.gradle" }}
+          - user-service-
 
       - attach_workspace:
           at: ~/
@@ -402,9 +388,7 @@ jobs:
             cd ..
       - save_cache:
           name: Save cache for user-service
-          paths:
-            - "repo/user-service/"
-          key: v1-dependencies-user-service-{{ checksum ".gradle" }}
+          key: user-service-{{ checksum "user-service/.gradle" }}
 
 
 workflows:
