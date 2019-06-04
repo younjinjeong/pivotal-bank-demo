@@ -41,11 +41,11 @@ jobs:
       - run: pwd
       - run: cd ~/repo
       - run: ls -alt ~/repo
-      - run: ~/repo/quotes-service/gradlew test --test '**'
-      - run: ~/repo/accounts-service/gradlew test --test '**'
-      - run: ~/repo/portfolio-service/gradlew test --test '**'
-      - run: ~/repo/web-ui/gradlew test --test '**'
-      - run: ~/repo/user-service/gradlew test --test '**'
+      - run: ~/repo/quotes-service/gradlew test --tests '**'
+      - run: ~/repo/accounts-service/gradlew test --tests '**'
+      - run: ~/repo/portfolio-service/gradlew test --tests '**'
+      - run: ~/repo/web-ui/gradlew test --tests '**'
+      - run: ~/repo/user-service/gradlew test --tests '**'
 
       # run tests!
       # - run: ./gradlew test
