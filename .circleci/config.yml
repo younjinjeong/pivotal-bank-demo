@@ -20,7 +20,19 @@ jobs:
       TERM: dumb
 
     steps:
+      - restore_cache:
+          keys:
+            - pivotal-bank-source-{{ .Branch }}-{{ .Revision }}
+            - pivotal-bank-source-{{ .Branch }}-
+            - pivotal-bank-source-
+
       - checkout
+
+      - save_cache:
+          key: pivotal-bank-source-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - ".git"
+
       - persist_to_workspace:
           root: ~/
           paths:
@@ -42,13 +54,14 @@ jobs:
       TERM: dumb
 
     steps:
+
+      - attach_workspace:
+          at: ~/
+
       - restore_cache:
           keys:
             - v1-dependencies-quotes-service-{{ checksum ".gradle" }}
             - v1-dependencies-quotes-service-
-
-      - attach_workspace:
-          at: ~/
 
       - run:
           name: quotes-service build
@@ -88,8 +101,8 @@ jobs:
     steps:
       - restore_cache:
           keys:
-            - v1-dependencies-accounts-service-{{ checksum ".gradle" }}
-            - v1-dependencies-accounts-service-
+            - accounts-service-{{ checksum ".gradle" }}
+            - accounts-service-
 
       - attach_workspace:
           at: ~/
