@@ -116,6 +116,8 @@ jobs:
 
       - save_cache:
           name: Save cache for accounts-service
+          paths:
+            - "~/repo/accounts-service/"
           key: accounts-service-{{ checksum "accounts-service/.gradle" }}
 
       - persist_to_workspace:
@@ -158,8 +160,8 @@ jobs:
 
       - save_cache:
           name: Save cache for portfolio-service
-          # paths:
-          #   - "~/repo/portfolio-service/"
+          paths:
+            - "~/repo/portfolio-service/"
           key: portfolio-service-{{ checksum "portfolio-service/.gradle" }}
 
       - persist_to_workspace:
@@ -200,6 +202,8 @@ jobs:
 
       - save_cache:
           name: Save cache for web-ui
+          paths:
+            - "~/repo/web-ui/"
           key: web-ui-{{ checksum "web-ui/.gradle" }}
 
       - persist_to_workspace:
@@ -243,6 +247,8 @@ jobs:
 
       - save_cache:
           name: Save cache for user-service
+          paths:
+            - "~/repo/user-service/"
           key: user-service-{{ checksum "user-service/.gradle" }}
 
       - persist_to_workspace:
@@ -276,6 +282,8 @@ jobs:
 
       - save_cache:
           name: Save cache for quotes-service
+          paths:
+            - "~/repo/quotes-service/"
           key: quotes-service-{{ checksum "quotes-service/.gradle" }}
 
 
@@ -306,6 +314,8 @@ jobs:
 
       - save_cache:
           name: Save cache for accounts service
+          paths:
+            - "~/repo/accounts-service/"
           key: accounts-service-{{ checksum "accounts-service/.gradle" }}
 
 
@@ -334,6 +344,8 @@ jobs:
 
       - save_cache:
           name: Save cache for portfolio service
+          paths:
+            - "~/repo/portfolio-service/"
           key: v1-dependencies-portfolio-service-{{ checksum "portfolio-service/.gradle" }}
 
 
@@ -361,6 +373,8 @@ jobs:
             cd ..
       - save_cache:
           name: Save cache for web-ui
+          paths:
+            - "~/repo/web-ui/"
           key: web-ui-{{ checksum "web-ui/.gradle" }}
 
 
@@ -388,6 +402,8 @@ jobs:
             cd ..
       - save_cache:
           name: Save cache for user-service
+          paths:
+            - "~/repo/user-service/"
           key: user-service-{{ checksum "user-service/.gradle" }}
 
 
