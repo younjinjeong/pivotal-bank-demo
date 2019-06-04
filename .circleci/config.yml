@@ -266,9 +266,9 @@ jobs:
 
     steps:
       - restore_cache:
-        keys:
-          - quotes-service-{{ checksum "quotes-service/.gradle" }}
-          - quotes-service-
+          keys:
+            - quotes-service-{{ checksum "quotes-service/.gradle" }}
+            - quotes-service-
 
       - attach_workspace:
           at: ~/
@@ -358,9 +358,9 @@ jobs:
 
     steps:
       - restore_cache:
-        keys:
-          - web-ui-{{ checksum "web-ui/.gradle" }}
-          - web-ui-
+          keys:
+            - web-ui-{{ checksum "web-ui/.gradle" }}
+            - web-ui-
 
       - attach_workspace:
           at: ~/
@@ -387,9 +387,9 @@ jobs:
 
     steps:
       - restore_cache:
-        keys:
-          - user-service-{{ checksum "user-service/.gradle" }}
-          - user-service-
+          keys:
+            - user-service-{{ checksum "user-service/.gradle" }}
+            - user-service-
 
       - attach_workspace:
           at: ~/
