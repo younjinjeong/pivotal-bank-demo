@@ -12,7 +12,7 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       # - image: circleci/postgres:9.4
-    parallelism: 4
+    # parallelism: 4
     working_directory: ~/repo
     environment:
       # Customize the JVM maximum heap limit
@@ -21,36 +21,67 @@ jobs:
 
     steps:
       - checkout
+
       - run:
           name: quotes-service build
           command: |
             cd quotes-service
             ./gradlew build
             cd ..
+      - save_cache:
+          name: Save cache for quotes-service
+          paths:
+            - quotes-service/
+          key: v1-dependencies-quotes-service-{{ checksum ".gradle" }}
+
       - run:
           name: accounts-service build
           command: |
             cd accounts-service
             ./gradlew build
             cd ..
+      - save_cache:
+          name: Save cache for accounts service
+          paths:
+            - accounts-service/
+          key: v1-dependencies-accounts-service-{{ checksum ".gradle" }}
+
       - run:
           name: portfolio-service build
           command: |
             cd portfolio-service
             ./gradlew build
             cd ..
+      - save_cache:
+          name: Save cache for portfolio service
+          paths:
+            - portfolio-service/
+          key: v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
+          
       - run:
           name: webui-service build
           command: |
             cd web-ui
             ./gradlew build
             cd ..
+      - save_cache:
+          name: Save cache for web-ui
+          paths:
+            - web-ui/
+          key: v1-dependencies-web-ui-{{ checksum ".gradle" }}
+
       - run:
           name: user-service build
           command: |
             cd user-service
             ./gradlew build
             cd ..
+      - save_cache:
+          name: Save cache for user-service
+          paths:
+            - user-service/
+          key: v1-dependencies-user-service-{{ checksum ".gradle" }}
+
 
       - persist_to_workspace:
           root: ~/
@@ -61,42 +92,79 @@ jobs:
   unit_test:
     docker:
       - image: circleci/openjdk:11-jdk
-    parallelism: 4
+    # parallelism: 4
     working_directory: ~/repo
     steps:
+      -restore_cache:
+        keys:
+          - v1-dependencies-quotes-service-{{ checksum ".gradle" }}
+          - v1-dependencies-accounts-service-{{ checksum ".gradle" }}
+          - v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
+          - v1-dependencies-web-ui-{{ checksum ".gradle" }}
+
       - attach_workspace:
           at: ~/
+
       - run:
             name: quotes-service test
             command: |
               cd quotes-service
               ./gradlew test --tests '**'
               cd ..
+
+      - save_cache:
+          name: Save cache for quotes-service
+          paths:
+            - quotes-service/
+          key: v1-dependencies-quotes-service-{{ checksum ".gradle" }}
+
       - run:
           name: accounts-service test
           command: |
             cd accounts-service
             ./gradlew test --tests '**'
             cd ..
+      - save_cache:
+          name: Save cache for accounts service
+          paths:
+            - accounts-service/
+          key: v1-dependencies-accounts-service-{{ checksum ".gradle" }}
+
       - run:
           name: portfolio-service test
           command: |
             cd portfolio-service
             ./gradlew test --tests '**'
             cd ..
+      - save_cache:
+          name: Save cache for portfolio service
+          paths:
+            - portfolio-service/
+          key: v1-dependencies-portfolio-service-{{ checksum ".gradle" }}
+
       - run:
           name: webui-service test
           command: |
             cd web-ui
             ./gradlew test --tests '**'
             cd ..
+      - save_cache:
+          name: Save cache for web-ui
+          paths:
+            - web-ui/
+          key: v1-dependencies-web-ui-{{ checksum ".gradle" }}
+
       - run:
           name: user-service test
           command: |
             cd user-service
             ./gradlew test --tests '**'
             cd ..
-
+      - save_cache:
+          name: Save cache for user-service
+          paths:
+            - user-service/
+          key: v1-dependencies-user-service-{{ checksum ".gradle" }}
       # run tests!
       # - run: ./gradlew test
 
