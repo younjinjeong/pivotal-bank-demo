@@ -34,7 +34,7 @@ jobs:
     docker:
       - image: circleci/openjdk:11-jdk
     # parallelism: 4
-    working_directory: ~/repo
+    working_directory: ~/
     steps:
       - attach_workspace:
           at: ~/repo
