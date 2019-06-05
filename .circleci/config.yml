@@ -588,7 +588,7 @@ jobs:
 
     working_directory: ~/repo 
 
-    stpes:
+    steps:
       - run: echo "END!!!!"    
       - run: echo "FINISHED!!!"
 
@@ -600,7 +600,7 @@ jobs:
 
     working_directory: ~/repo 
 
-    stpes:
+    steps:
       - run: echo "Do some load test here"    
       - run: 
           name: install Httpie and test elasticsearch
