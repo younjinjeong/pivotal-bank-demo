@@ -284,7 +284,7 @@ jobs:
           name: analytics-scdf-sink build 
           command: |
             cd analytics-scdf-sink
-            ./mvnw clean package
+            ./mvnw clean package -Dmaven.test.skip=true
             cd ..
       
       - save_cache:
