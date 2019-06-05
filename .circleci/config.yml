@@ -520,7 +520,6 @@ workflows:
           requires:
             - code_checkout
 
-
       - test_quotes_service:
           requires:
             - build_quotes_service
@@ -540,3 +539,16 @@ workflows:
       - test_user_service:
           requires:
             - build_user_service
+
+      - build_analytics_scdf_sink:
+          requires:
+            - test_quotes_service
+            - test_accounts_sservice
+            - test_portfolio_service
+            - test_web_ui
+            - test_user_service 
+
+      - build_analytics_service:
+          requires:
+            - build_analytics_scdf_sink 
+
