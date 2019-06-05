@@ -590,6 +590,7 @@ jobs:
 
     stpes:
       - run: echo "END!!!!"    
+      - run: echo "FINISHED!!!"
 
 
   staging_load_test:
@@ -601,6 +602,11 @@ jobs:
 
     stpes:
       - run: echo "Do some load test here"    
+      - run: 
+          name: install Httpie and test elasticsearch
+          command: |
+            sudo apt-get install httpie -y 
+            
 
 
 workflows:
