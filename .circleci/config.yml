@@ -330,6 +330,12 @@ jobs:
       - attach_workspace:
           at: ~/repo
 
+      - run: 
+          name: install Httpie and test elasticsearch
+          command: |
+            sudo apt-get install httpie -y 
+            http $ES_HOST:$ES_HTTP_PORT
+
       - run:
           name: analytics-service build
           command: |
