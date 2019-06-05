@@ -34,9 +34,9 @@ jobs:
             - ".git"
 
       - persist_to_workspace:
-          root: ~/
+          root: ~/repo
           paths:
-            - .
+            - . 
 
   build_quotes_service:
     docker:
@@ -56,7 +56,7 @@ jobs:
     steps:
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - restore_cache:
           keys:
@@ -77,9 +77,9 @@ jobs:
           key: quotes-service-{{ checksum "quotes-service/build.gradle" }}
 
       - persist_to_workspace:
-          root: ~/
+          root: ~/repo
           paths:
-            - .
+            - quotes-service/
 
 
 
@@ -105,7 +105,7 @@ jobs:
             - accounts-service-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
           name: accounts-service build
@@ -121,11 +121,9 @@ jobs:
           key: accounts-service-{{ checksum "accounts-service/build.gradle" }}
 
       - persist_to_workspace:
-          root: ~/
+          root: ~/repo
           paths:
-            - .
-
-
+            - accounts-service/
 
   build_portfolio_service:
     docker:
@@ -149,7 +147,7 @@ jobs:
             - portfolio-service-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
           name: portfolio-service build
@@ -165,9 +163,9 @@ jobs:
           key: portfolio-service-{{ checksum "portfolio-service/build.gradle" }}
 
       - persist_to_workspace:
-          root: ~/
+          root: ~/repo
           paths:
-            - .
+            - portfolio-service/
 
   build_web_ui:
     docker:
@@ -191,7 +189,7 @@ jobs:
             - web-ui-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
           name: web-ui build
@@ -207,9 +205,9 @@ jobs:
           key: web-ui-{{ checksum "web-ui/build.gradle" }}
 
       - persist_to_workspace:
-          root: ~/
+          root: ~/repo
           paths:
-            - .
+            - web-ui/
 
   build_user_service:
     docker:
@@ -234,7 +232,7 @@ jobs:
             - user-service-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
           name: user-service build
@@ -250,9 +248,9 @@ jobs:
           key: user-service-{{ checksum "user-service/build.gradle" }}
 
       - persist_to_workspace:
-          root: ~/
+          root: ~/repo
           paths:
-            - .
+            - user-service
 
 
   build_analytics_scdf_sink:
@@ -279,7 +277,7 @@ jobs:
               - analytics-scdf-sink-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
       
       - run:
           name: analytics-scdf-sink build 
@@ -294,10 +292,10 @@ jobs:
             - "~/repo/analytics-scdf-sink/.mvn"
           key: analytics-scdf-sink-{{ checksum "analytics-scdf-sink/pom.xml" }}
 
-#      - persist_to_workspace:
-#          root: ~/
-#          paths:
-#            - .
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - analytics-scdf-sink
 
   build_analytics_service:
     docker:
@@ -306,6 +304,7 @@ jobs:
           - ES_HOST: localhost
           - ES_PORT: 9300
           - ES_HTTP_PORT: 9200 
+      
       - image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
         environment:
           - cluster.name: elasticsearch
@@ -323,7 +322,7 @@ jobs:
               - analytics-service-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
           name: analytics-service build
@@ -337,10 +336,10 @@ jobs:
           paths: "~/repo/analytics-service/.mvn"
           key: analytics-service-{{ checksum "analytics-service/pom.xml" }}
 
- #     - persist_to_workspace:
- #         root: ~/
- #         paths:
- #           - .
+      - persist_to_workspace:
+          root: ~/repo
+          paths:
+            - analytics-service
 
   test_quotes_service:
 
@@ -388,7 +387,7 @@ jobs:
 
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
           name: accounts-service test
@@ -418,7 +417,7 @@ jobs:
             - portfolio-service-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
           name: portfolio-service test
@@ -448,7 +447,7 @@ jobs:
             - web-ui-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
           name: webui-service test
@@ -456,6 +455,7 @@ jobs:
             cd web-ui
             ./gradlew test --tests '**'
             cd ..
+      
       - save_cache:
           name: Save cache for web-ui
           paths:
@@ -477,7 +477,7 @@ jobs:
             - user-service-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
           name: user-service test
@@ -485,6 +485,7 @@ jobs:
             cd user-service
             ./gradlew test --tests '**'
             cd ..
+      
       - save_cache:
           name: Save cache for user-service
           paths:
