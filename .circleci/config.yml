@@ -543,7 +543,7 @@ workflows:
       - build_analytics_scdf_sink:
           requires:
             - test_quotes_service
-            - test_accounts_sservice
+            - test_accounts_service
             - test_portfolio_service
             - test_web_ui
             - test_user_service 
