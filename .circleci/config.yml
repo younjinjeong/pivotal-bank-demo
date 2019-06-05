@@ -278,26 +278,26 @@ jobs:
               - analytics-scdf-sink-{{ checksum "analytics-scdf-sink/pom.xml" }}
               - analytics-scdf-sink-
 
-        - attach_workspace:
-            at: ~/
-        
-        - run:
-            name: analytics-scdf-sink build 
-            command: |
-              cd anatlytics-scdf-sink
-              ./mvnw clean package
-              cd ..
-        
-        - save_cache:
-            name: Save cache for analytics-scdf-sink 
-            paths:
-              - "~/repo/analytics-scdf-sink/.mvn"
-            key: analytics-scdf-sink-{{ checksum "analytics-scdf-sink/pom.xml" }}
+      - attach_workspace:
+          at: ~/
+      
+      - run:
+          name: analytics-scdf-sink build 
+          command: |
+            cd anatlytics-scdf-sink
+            ./mvnw clean package
+            cd ..
+      
+      - save_cache:
+          name: Save cache for analytics-scdf-sink 
+          paths:
+            - "~/repo/analytics-scdf-sink/.mvn"
+          key: analytics-scdf-sink-{{ checksum "analytics-scdf-sink/pom.xml" }}
 
-        - persist_to_workspace:
-            root: ~/
-            paths:
-              - .
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
 
   build_analytics_service:
     docker:
@@ -322,25 +322,25 @@ jobs:
               - analytics-service-{{ checksum "analytics-service/build.gradle" }}
               - analytics-service-
 
-        - attach_workspace:
-            at: ~/
+      - attach_workspace:
+          at: ~/
 
-        - run:
-            name: analytics-service build
-            command: |
-              cd analytics-service
-              ./gradlew build
-              cd ..
-        
-        - save_cache: 
-            name: Save cache for analytics-service 
-            paths: "~/repo/analytics-service/.mvn"
-            key: analytics-service-{{ checksum "analytics-service/pom.xml" }}
+      - run:
+          name: analytics-service build
+          command: |
+            cd analytics-service
+            ./gradlew build
+            cd ..
+      
+      - save_cache: 
+          name: Save cache for analytics-service 
+          paths: "~/repo/analytics-service/.mvn"
+          key: analytics-service-{{ checksum "analytics-service/pom.xml" }}
 
-        - persist_to_workspace:
-            root: ~/
-            paths:
-              - .
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .
 
   test_quotes_service:
 
