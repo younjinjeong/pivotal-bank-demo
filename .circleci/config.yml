@@ -355,7 +355,7 @@ jobs:
             - quotes-service-
 
       - attach_workspace:
-          at: ~/
+          at: ~/repo
 
       - run:
             name: quotes-service test
