@@ -294,10 +294,10 @@ jobs:
             - "~/repo/analytics-scdf-sink/.mvn"
           key: analytics-scdf-sink-{{ checksum "analytics-scdf-sink/pom.xml" }}
 
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .
+#      - persist_to_workspace:
+#          root: ~/
+#          paths:
+#            - .
 
   build_analytics_service:
     docker:
@@ -337,10 +337,10 @@ jobs:
           paths: "~/repo/analytics-service/.mvn"
           key: analytics-service-{{ checksum "analytics-service/pom.xml" }}
 
-      - persist_to_workspace:
-          root: ~/
-          paths:
-            - .
+ #     - persist_to_workspace:
+ #         root: ~/
+ #         paths:
+ #           - .
 
   test_quotes_service:
 
@@ -491,7 +491,8 @@ jobs:
             - "~/repo/user-service/.gradle"
           key: user-service-{{ checksum "user-service/build.gradle" }}
  
-              
+            
+
 
 
 workflows:
