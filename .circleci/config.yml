@@ -505,6 +505,7 @@ jobs:
           key: user-service-{{ checksum "user-service/build.gradle" }}
   
   deploy_to_staging:
+
     docker: 
       - image: circleci/openjdk:11-jdk 
     
@@ -546,6 +547,60 @@ jobs:
               ./3_deploy.sh
 
 
+  delete_statging_deploy:
+    
+    docker: 
+      - image: circleci/openjdk:11-jdk 
+    
+    working_directory: ~/repo
+
+    steps:
+      
+      - attach_workspace:
+          at: ~/repo
+
+      - run:
+            name: Setup CF CLI 
+            command: |
+              curl -v -L -o cf-cli_amd64.deb 'https://cli.run.pivotal.io/stable?release=debian64&source=github'
+              sudo dpkg -i cf-cli_amd64.deb
+              cf -v
+              cf api ${CF_ENDPOINT}  # alternately target your private Cloud Foundry deployment
+              cf auth "$CF_USER" "$CF_PASSWORD"
+              cf target -o "$CF_ORG" -s "$CF_SPACE"
+
+      - run:
+            name: Remove Staging apps  
+            command: | 
+              cd scripts
+              ./deleteListedApps.sh
+      
+      - run:
+            name: Remove Services
+            command: |
+              cd scripts
+              ./deleteListedServices.sh
+
+  end_pipeline:
+
+    docker:
+      - image: circleci/openjdk:11-jdk 
+
+    working_directory: ~/repo 
+
+    stpes:
+      - run: echo "END!!!!"    
+
+
+   staging_load_test:
+
+     docker:        
+      - image: circleci/openjdk:11-jdk 
+
+    working_directory: ~/repo 
+
+    stpes:
+      - run: echo "Do some load test here"    
 
 
 workflows:
@@ -606,3 +661,22 @@ workflows:
           requires:
             - build_analytics_scdf_sink 
 
+      - deploy_to_staging:
+          requires:
+            - test_quotes_service
+            - test_accounts_service
+            - test_portfolio_service
+            - test_web_ui
+            - test_user_service 
+
+      - staging_load_test:
+          requires:
+            - deploy_to_staging 
+
+      - delete_statging_deploy: 
+          requires:
+            - staging_load_test 
+      
+      - end_pipeline: 
+          requires:
+            - delete_statging_deploy 
