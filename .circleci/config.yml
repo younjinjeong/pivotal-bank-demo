@@ -538,13 +538,13 @@ jobs:
             name: Prepare PWS Services 
             command: | 
               cd scripts
-              ./1_createServices.sh
+              bash ./1_createServices.sh
       
       - run:
             name: Deploy Pivotal Bank to PAS 
             command: |
               cd scripts
-              ./3_deploy.sh
+              bash ./3_deploy.sh
 
 
   delete_statging_deploy:
@@ -573,13 +573,13 @@ jobs:
             name: Remove Staging apps  
             command: | 
               cd scripts
-              ./deleteListedApps.sh
+              bash ./deleteListedApps.sh
       
       - run:
             name: Remove Services
             command: |
               cd scripts
-              ./deleteListedServices.sh
+              bash ./deleteListedServices.sh
 
   end_pipeline:
 
