@@ -546,7 +546,6 @@ jobs:
               cd scripts
               bash ./3_deploy.sh
 
-
   delete_statging_deploy:
     
     docker: 
