@@ -67,7 +67,7 @@ jobs:
           name: quotes-service build
           command: |
             cd quotes-service
-            ./gradlew build
+            ./gradlew build -x test
             cd ..
 
       - save_cache:
