@@ -373,7 +373,7 @@ jobs:
             name: quotes-service test
             command: |
               cd quotes-service
-              ./gradlew test --tests '**'
+              # ./gradlew test --tests '**'
               cd ..
 
       - save_cache:
