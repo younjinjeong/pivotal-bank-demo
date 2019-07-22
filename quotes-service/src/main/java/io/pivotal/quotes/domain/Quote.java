@@ -104,9 +104,9 @@ public class Quote {
 	private Float mSDate;
 	@JsonProperty("MarketCap")
 	private Float marketCap;
-	@JsonProperty("Volume")
+	@JsonProperty("iexVolume")
 	private Integer volume;
-	@JsonProperty("ChangeYTD")
+	@JsonProperty("ytdChange")
 	private Float changeYTD;
 	@JsonProperty("ChangePercentYTD")
 	private Float changePercentYTD;
