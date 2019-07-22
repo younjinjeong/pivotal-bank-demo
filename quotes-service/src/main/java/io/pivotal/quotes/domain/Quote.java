@@ -35,54 +35,54 @@ public class Quote {
 		}
 */
 
-/* New API response
+/* New API response from cloud.iexapis.com
 
-{
-  "symbol": "PVTL",
-  "companyName": "Pivotal Software, Inc.",
-  "primaryExchange": "New York Stock Exchange",
-  "calculationPrice": "tops",
-  "open": null,
-  "openTime": null,
-  "close": null,
-  "closeTime": null,
-  "high": null,
-  "low": null,
-  "latestPrice": 10,
-  "latestSource": "IEX real time price",
-  "latestTime": "11:51:35 AM",
-  "latestUpdate": 1563810695487,
-  "latestVolume": null,
-  "iexRealtimePrice": 10,
-  "iexRealtimeSize": 700,
-  "iexLastUpdated": 1563810695487,
-  "delayedPrice": null,
-  "delayedPriceTime": null,
-  "extendedPrice": null,
-  "extendedChange": null,
-  "extendedChangePercent": null,
-  "extendedPriceTime": null,
-  "previousClose": 10.09,
-  "previousVolume": null,
-  "change": -0.09,
-  "changePercent": -0.00892,
-  "volume": null,
-  "iexMarketPercent": 0.04468113727039079,
-  "iexVolume": 31223,
-  "avgTotalVolume": 2874289,
-  "iexBidPrice": 0,
-  "iexBidSize": 0,
-  "iexAskPrice": 0,
-  "iexAskSize": 0,
-  "marketCap": 2719132720,
-  "peRatio": -18.49,
-  "week52High": 29.15,
-  "week52Low": 9.89,
-  "ytdChange": -0.39066,
-  "lastTradeTime": 1563810695487
-}
+	{
+		"symbol": "PVTL",
+		"companyName": "Pivotal Software, Inc.",
+		"primaryExchange": "New York Stock Exchange",
+		"calculationPrice": "tops",
+		"open": null,
+		"openTime": null,
+		"close": null,
+		"closeTime": null,
+		"high": null,
+		"low": null,
+		"latestPrice": 10,
+		"latestSource": "IEX real time price",
+		"latestTime": "11:51:35 AM",
+		"latestUpdate": 1563810695487,
+		"latestVolume": null,
+		"iexRealtimePrice": 10,
+		"iexRealtimeSize": 700,
+		"iexLastUpdated": 1563810695487,
+		"delayedPrice": null,
+		"delayedPriceTime": null,
+		"extendedPrice": null,
+		"extendedChange": null,
+		"extendedChangePercent": null,
+		"extendedPriceTime": null,
+		"previousClose": 10.09,
+		"previousVolume": null,
+		"change": -0.09,
+		"changePercent": -0.00892,
+		"volume": null,
+		"iexMarketPercent": 0.04468113727039079,
+		"iexVolume": 31223,
+		"avgTotalVolume": 2874289,
+		"iexBidPrice": 0,
+		"iexBidSize": 0,
+		"iexAskPrice": 0,
+		"iexAskSize": 0,
+		"marketCap": 2719132720,
+		"peRatio": -18.49,
+		"week52High": 29.15,
+		"week52Low": 9.89,
+		"ytdChange": -0.39066,
+		"lastTradeTime": 1563810695487
+	}
 
- */
+*/
 
 	@JsonProperty("Status")
 	private String status;
@@ -106,7 +106,7 @@ public class Quote {
 	private Float marketCap;
 	@JsonProperty("iexVolume")
 	private Integer volume;
-	@JsonProperty("ytdChange")
+	@JsonProperty("ytdChangeQ")
 	private Float changeYTD;
 	@JsonProperty("ChangePercentYTD")
 	private Float changePercentYTD;

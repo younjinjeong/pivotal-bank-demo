@@ -120,7 +120,11 @@ public class QuoteService {
 	public List<Quote> getQuotes(String symbols) {
 		log.debug("retrieving multiple quotes for: " + symbols);
 
-		IexBatchQuote batchQuotes = restTemplate.getForObject(quotes_url, IexBatchQuote.class, symbols);
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("symbols", symbols);
+		params.put("token", quotes_token);
+
+		IexBatchQuote batchQuotes = restTemplate.getForObject(quotes_url, IexBatchQuote.class, params);
 
 		log.debug("Got response: " + batchQuotes);
 		final List<Quote> quotes = new ArrayList<>();

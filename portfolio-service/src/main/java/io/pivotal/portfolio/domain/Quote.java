@@ -28,16 +28,16 @@ public class Quote {
 	 */
 	@JsonProperty("Status")
 	private String status;
-	@JsonProperty("Name")
+	@JsonProperty("companyName")
 	private String name;
 
-	@JsonProperty("Symbol")
+	@JsonProperty("symbol")
 	private String symbol;
-	@JsonProperty("LastPrice")
+	@JsonProperty("iexRealtimePrice")
 	private BigDecimal lastPrice;
-	@JsonProperty("Change")
+	@JsonProperty("change")
 	private BigDecimal change;
-	@JsonProperty("ChangePercent")
+	@JsonProperty("changePercent")
 	private Float changePercent;
 	@JsonProperty("Timestamp")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE MMM dd HH:mm:ss zzzXXX yyyy", locale="ENGLISH")
@@ -46,18 +46,19 @@ public class Quote {
 	private Float mSDate;
 	@JsonProperty("MarketCap")
 	private Float marketCap;
-	@JsonProperty("Volume")
+	@JsonProperty("iexVolume")
 	private Integer volume;
-	@JsonProperty("ChangeYTD")
+	@JsonProperty("ytdChangeQ")
 	private Float changeYTD;
 	@JsonProperty("ChangePercentYTD")
 	private Float changePercentYTD;
-	@JsonProperty("High")
+	@JsonProperty("week52High")
 	private BigDecimal high;
-	@JsonProperty("Low")
+	@JsonProperty("week52Low")
 	private BigDecimal low;
 	@JsonProperty("Open")
 	private BigDecimal open;
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
