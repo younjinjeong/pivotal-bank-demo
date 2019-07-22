@@ -8,15 +8,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Quote {
 	@JsonProperty("Status")
 	private String status;
-	@JsonProperty("Name")
+	@JsonProperty("companyName")
 	private String name;
-	@JsonProperty("Symbol")
+	@JsonProperty("symbol")
 	private String symbol;
-	@JsonProperty("LastPrice")
+	@JsonProperty("iexRealtimePrice")
 	private Double lastPrice;
-	@JsonProperty("Change")
+	@JsonProperty("change")
 	private Double change;
-	@JsonProperty("ChangePercent")
+	@JsonProperty("changePercent")
 	private Double changePercent;
 	@JsonProperty("Timestamp")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE MMM dd HH:mm:ss zzzXXX yyyy")
@@ -25,20 +25,21 @@ public class Quote {
 	private Double mSDate;
 	@JsonProperty("MarketCap")
 	private Double marketCap;
-	@JsonProperty("Volume")
+	@JsonProperty("iexVolume")
 	private Integer volume;
-	@JsonProperty("ChangeYTD")
+	@JsonProperty("ytdChange")
 	private Double changeYTD;
 	@JsonProperty("ChangePercentYTD")
 	private Double changePercentYTD;
-	@JsonProperty("High")
+	@JsonProperty("week52High")
 	private Double high;
-	@JsonProperty("Low")
+	@JsonProperty("week52Low")
 	private Double low;
 	@JsonProperty("Open")
 	private Double open;
 	@JsonProperty("Currency")
-	private String currency;
+	private String currency = "USD";
+
 	public String getStatus() {
 		return status;
 	}

@@ -106,7 +106,7 @@ public class Quote {
 	private Float marketCap;
 	@JsonProperty("iexVolume")
 	private Integer volume;
-	@JsonProperty("ytdChangeQ")
+	@JsonProperty("ytdChange")
 	private Float changeYTD;
 	@JsonProperty("ChangePercentYTD")
 	private Float changePercentYTD;
