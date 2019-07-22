@@ -31,6 +31,9 @@ public class QuoteService {
 	@Value("${pivotal.quotes.quotes_url}")
 	protected String quotes_url;
 
+	@Value("${privotal.quotes.quotes_token}")
+	protected String quotes_token;
+
 	@Value("${pivotal.quotes.companies_url}")
 	protected String company_url;
 
@@ -56,6 +59,7 @@ public class QuoteService {
 
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("symbol", symbol);
+		params.put("token", quotes_token);
 
 		IexQuote quote = restTemplate.getForObject(quote_url, IexQuote.class, params);
 
@@ -116,7 +120,7 @@ public class QuoteService {
 	public List<Quote> getQuotes(String symbols) {
 		log.debug("retrieving multiple quotes for: " + symbols);
 
-		IexBatchQuote batchQuotes = restTemplate.getForObject(quotes_url, IexBatchQuote.class, symbols);
+		IexBatchQuote batchQuotes = restTemplate.getForObject(quotes_url, IexBatchQuote.class, symbols, quotes_token);
 
 		log.debug("Got response: " + batchQuotes);
 		final List<Quote> quotes = new ArrayList<>();

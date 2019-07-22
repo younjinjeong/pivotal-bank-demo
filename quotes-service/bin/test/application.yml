@@ -1,7 +1,8 @@
 pivotal:
   quotes:
-    quote_url: https://api.iextrading.com/1.0/stock/{symbol}/quote
-    quotes_url: https://api.iextrading.com/1.0/stock/market/batch?symbols={symbols}&types=quote
+    quote_url: https://cloud.iexapies.com/v1/stock/{symbol}/quote/?token={token}
+    quotes_url: https://cloud.iexapies.com/v1/stock/market/batch?symbols={symbols}&types=quote?token={token}
+    quotes_token: pk_6a68060d042a470297b98a2d240c3465
     companies_url: http://dev.markitondemand.com/Api/v2/Lookup/json?input={name}
 logging:
   level:
