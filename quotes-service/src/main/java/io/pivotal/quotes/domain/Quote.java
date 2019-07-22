@@ -32,20 +32,70 @@ public class Quote {
     "Low":519.175,
     "Open":519.175
     "Currency":"USD"
+		}
+*/
+
+/* New API response
+
+{
+  "symbol": "PVTL",
+  "companyName": "Pivotal Software, Inc.",
+  "primaryExchange": "New York Stock Exchange",
+  "calculationPrice": "tops",
+  "open": null,
+  "openTime": null,
+  "close": null,
+  "closeTime": null,
+  "high": null,
+  "low": null,
+  "latestPrice": 10,
+  "latestSource": "IEX real time price",
+  "latestTime": "11:51:35 AM",
+  "latestUpdate": 1563810695487,
+  "latestVolume": null,
+  "iexRealtimePrice": 10,
+  "iexRealtimeSize": 700,
+  "iexLastUpdated": 1563810695487,
+  "delayedPrice": null,
+  "delayedPriceTime": null,
+  "extendedPrice": null,
+  "extendedChange": null,
+  "extendedChangePercent": null,
+  "extendedPriceTime": null,
+  "previousClose": 10.09,
+  "previousVolume": null,
+  "change": -0.09,
+  "changePercent": -0.00892,
+  "volume": null,
+  "iexMarketPercent": 0.04468113727039079,
+  "iexVolume": 31223,
+  "avgTotalVolume": 2874289,
+  "iexBidPrice": 0,
+  "iexBidSize": 0,
+  "iexAskPrice": 0,
+  "iexAskSize": 0,
+  "marketCap": 2719132720,
+  "peRatio": -18.49,
+  "week52High": 29.15,
+  "week52Low": 9.89,
+  "ytdChange": -0.39066,
+  "lastTradeTime": 1563810695487
 }
+
  */
+
 	@JsonProperty("Status")
 	private String status;
-	@JsonProperty("Name")
+	@JsonProperty("companyName")
 	private String name;
 
-	@JsonProperty("Symbol")
+	@JsonProperty("symbol")
 	private String symbol;
-	@JsonProperty("LastPrice")
+	@JsonProperty("iexRealtimePrice")
 	private BigDecimal lastPrice;
-	@JsonProperty("Change")
+	@JsonProperty("change")
 	private BigDecimal change;
-	@JsonProperty("ChangePercent")
+	@JsonProperty("changePercent")
 	private Float changePercent;
 	@JsonProperty("Timestamp")
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="EEE MMM dd HH:mm:ss zzzXXX yyyy", locale="ENGLISH")
@@ -60,103 +110,103 @@ public class Quote {
 	private Float changeYTD;
 	@JsonProperty("ChangePercentYTD")
 	private Float changePercentYTD;
-	@JsonProperty("High")
+	@JsonProperty("week52High")
 	private BigDecimal high;
-	@JsonProperty("Low")
+	@JsonProperty("week52Low")
 	private BigDecimal low;
 	@JsonProperty("Open")
 	private BigDecimal open;
 	@JsonProperty("Currency")
 	private String currency = "USD";
-	
+
 	public BigDecimal getChange() {
 		return change;
 	}
 	public Float getChangePercent() {
 		return changePercent;
 	}
-	
+
 	public Float getChangePercentYTD() {
 		return changePercentYTD;
 	}
 	public Float getChangeYTD() {
 		return changeYTD;
 	}
-	
+
 	public BigDecimal getHigh() {
 		return high;
 	}
 	public BigDecimal getLastPrice() {
 		return lastPrice;
 	}
-	
+
 	public BigDecimal getLow() {
 		return low;
 	}
 	public Float getMarketCap() {
 		return marketCap;
 	}
-	
+
 	public Float getmSDate() {
 		return mSDate;
 	}
 	public String getName() {
 		return name;
 	}
-	
+
 	public BigDecimal getOpen() {
 		return open;
 	}
 	public String getStatus() {
 		return status;
 	}
-	
+
 	public String getSymbol() {
 		return symbol;
 	}
 	public Date getTimestamp() {
 		return timestamp;
 	}
-	
+
 	public Integer getVolume() {
 		return volume;
 	}
-	
+
 	public void setChange(BigDecimal bigDecimal) {
 		this.change = bigDecimal;
 	}
 	public void setChangePercent(Float changePercent) {
 		this.changePercent = changePercent;
 	}
-	
+
 	public void setChangePercentYTD(Float changePercentYTD) {
 		this.changePercentYTD = changePercentYTD;
 	}
 	public void setChangeYTD(Float changeYTD) {
 		this.changeYTD = changeYTD;
 	}
-	
+
 	public void setHigh(BigDecimal bigDecimal) {
 		this.high = bigDecimal;
 	}
 	public void setLastPrice(BigDecimal lastPrice) {
 		this.lastPrice = lastPrice;
 	}
-	
+
 	public void setLow(BigDecimal bigDecimal) {
 		this.low = bigDecimal;
 	}
 	public void setMarketCap(Float marketCap) {
 		this.marketCap = marketCap;
 	}
-	
+
 	public void setmSDate(Float mSDate) {
 		this.mSDate = mSDate;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public void setOpen(BigDecimal bigDecimal) {
 		this.open = bigDecimal;
 	}
@@ -164,7 +214,7 @@ public class Quote {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
+
 	public void setSymbol(String symbol) {
 		this.symbol = symbol;
 	}
@@ -172,7 +222,7 @@ public class Quote {
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
 	}
-	
+
 	public void setVolume(Integer volume) {
 		this.volume = volume;
 	}
@@ -186,17 +236,17 @@ public class Quote {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Quote [status=").append(status).append(", name=")
-				.append(name).append(", symbol=").append(symbol)
-				.append(", lastPrice=").append(lastPrice).append(", change=")
-				.append(change).append(", changePercent=")
-				.append(changePercent).append(", timestamp=").append(timestamp)
-				.append(", mSDate=").append(mSDate).append(", marketCap=")
-				.append(marketCap).append(", volume=").append(volume)
-				.append(", changeYTD=").append(changeYTD)
-				.append(", changePercentYTD=").append(changePercentYTD)
-				.append(", high=").append(high).append(", low=").append(low)
-				.append(", open=").append(open).append(", currency=")
-				.append(currency).append("]");
+			.append(name).append(", symbol=").append(symbol)
+			.append(", lastPrice=").append(lastPrice).append(", change=")
+			.append(change).append(", changePercent=")
+			.append(changePercent).append(", timestamp=").append(timestamp)
+			.append(", mSDate=").append(mSDate).append(", marketCap=")
+			.append(marketCap).append(", volume=").append(volume)
+			.append(", changeYTD=").append(changeYTD)
+			.append(", changePercentYTD=").append(changePercentYTD)
+			.append(", high=").append(high).append(", low=").append(low)
+			.append(", open=").append(open).append(", currency=")
+			.append(currency).append("]");
 		return builder.toString();
 	}
 	/* (non-Javadoc)
@@ -208,27 +258,27 @@ public class Quote {
 		int result = 1;
 		result = prime * result + ((change == null) ? 0 : change.hashCode());
 		result = prime * result
-				+ ((changePercent == null) ? 0 : changePercent.hashCode());
+			+ ((changePercent == null) ? 0 : changePercent.hashCode());
 		result = prime
-				* result
-				+ ((changePercentYTD == null) ? 0 : changePercentYTD.hashCode());
+			* result
+			+ ((changePercentYTD == null) ? 0 : changePercentYTD.hashCode());
 		result = prime * result
-				+ ((changeYTD == null) ? 0 : changeYTD.hashCode());
+			+ ((changeYTD == null) ? 0 : changeYTD.hashCode());
 		result = prime * result
-				+ ((currency == null) ? 0 : currency.hashCode());
+			+ ((currency == null) ? 0 : currency.hashCode());
 		result = prime * result + ((high == null) ? 0 : high.hashCode());
 		result = prime * result
-				+ ((lastPrice == null) ? 0 : lastPrice.hashCode());
+			+ ((lastPrice == null) ? 0 : lastPrice.hashCode());
 		result = prime * result + ((low == null) ? 0 : low.hashCode());
 		result = prime * result + ((mSDate == null) ? 0 : mSDate.hashCode());
 		result = prime * result
-				+ ((marketCap == null) ? 0 : marketCap.hashCode());
+			+ ((marketCap == null) ? 0 : marketCap.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((open == null) ? 0 : open.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((symbol == null) ? 0 : symbol.hashCode());
 		result = prime * result
-				+ ((timestamp == null) ? 0 : timestamp.hashCode());
+			+ ((timestamp == null) ? 0 : timestamp.hashCode());
 		result = prime * result + ((volume == null) ? 0 : volume.hashCode());
 		return result;
 	}
@@ -327,5 +377,5 @@ public class Quote {
 		return true;
 	}
 
-	
+
 }
