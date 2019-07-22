@@ -61,7 +61,7 @@ public class QuoteService {
 		params.put("symbol", symbol);
 		params.put("token", quotes_token);
 
-		IexQuote quote = restTemplate.getForObject(quote_url, IexQuote.class, params);
+		IexQuote quote = restTemplate.getForObject(quote_url, IexQuote.class, params, quotes_token);
 
 		if (quote.getSymbol() == null) {
 			throw new SymbolNotFoundException("Symbol not found: " + symbol);
@@ -78,7 +78,7 @@ public class QuoteService {
 	private Quote getQuoteFallback(String symbol)
 			throws SymbolNotFoundException {
 		log.debug("QuoteService.getQuoteFallback: circuit opened for symbol: "
-				+ symbol);
+				+ symbol + quotes_token);
 		Quote quote = new Quote();
 		quote.setSymbol(symbol);
 		quote.setStatus("FAILED");
@@ -120,7 +120,7 @@ public class QuoteService {
 	public List<Quote> getQuotes(String symbols) {
 		log.debug("retrieving multiple quotes for: " + symbols);
 
-		IexBatchQuote batchQuotes = restTemplate.getForObject(quotes_url, IexBatchQuote.class, symbols);
+		IexBatchQuote batchQuotes = restTemplate.getForObject(quotes_url, IexBatchQuote.class, symbols, quotes_token);
 
 		log.debug("Got response: " + batchQuotes);
 		final List<Quote> quotes = new ArrayList<>();
